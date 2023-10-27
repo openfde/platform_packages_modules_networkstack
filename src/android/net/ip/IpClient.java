@@ -1270,6 +1270,15 @@ public class IpClient extends StateMachine {
         // so as to track all required information directly.
         LinkProperties netlinkLinkProperties = mLinkObserver.getLinkProperties();
         newLp.setLinkAddresses(netlinkLinkProperties.getLinkAddresses());
+
+        if (/*!mInterfaceName.startsWith("wl") && */(mConfiguration != null)
+            && mConfiguration.mStaticIpConfig != null) {
+            final LinkAddress linkAddress = mConfiguration.mStaticIpConfig.getIpAddress();
+            if ((linkAddress != null) && (linkAddress.isIpv4())) {
+                newLp.addLinkAddress(linkAddress);
+            }
+        }
+
         for (RouteInfo route : netlinkLinkProperties.getRoutes()) {
             newLp.addRoute(route);
         }
