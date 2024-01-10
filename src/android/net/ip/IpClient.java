@@ -1275,7 +1275,9 @@ public class IpClient extends StateMachine {
             && mConfiguration.mStaticIpConfig != null) {
             final LinkAddress linkAddress = mConfiguration.mStaticIpConfig.getIpAddress();
             if ((linkAddress != null) && (linkAddress.isIpv4())) {
-                newLp.addLinkAddress(linkAddress);
+                List<LinkAddress> linkAddresses = new ArrayList<>();
+                linkAddresses.add(linkAddress);
+                newLp.setLinkAddresses(linkAddresses);
             }
         }
 
